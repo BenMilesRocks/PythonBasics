@@ -42,39 +42,25 @@ morse = {
 
 
 def morse_to_eng(string):
-    key_list = list(morse.keys())  # Makes a list of keys, so we can search by their index
-    val_list = list(morse.values())  # Makes the dictionary searchable by the index of the values
+    key_list = list(morse.keys())
+    val_list = list(morse.values())
+    temp = string.split()
     out = ""
-    lst = []
-    temp = ""
-    pos = 0
-    for i in string:  # compiles the morse code into individual words
-        pos += 1
-        if pos == len(string):
-            temp += i
-            lst.append(temp)
-        if i == "." or "-":
-            temp += i
-        if i == "/":
-            lst.append(i)
-        if i.isspace():
-            lst.append(temp.rstrip())
-            temp = ""
-    for item in lst:  # now translate the words in lst, using the index of the values against the keys
-        if item == "/":
-            out += " "
+    for letter in temp:
+        if letter == "/":
+            out += f" {letter} "
         else:
-            ind = val_list.index(item)
+            ind = val_list.index(letter)
             out += key_list[ind]
     return out
 
 
 def eng_to_morse(string):
     out = ""
-    for i in string:
-        if i.isalnum():
-            out += morse[i.upper()] + " "
-        if i.isspace():
+    for letter in string:
+        if letter.isalnum():
+            out += morse[letter.upper()] + " "
+        if letter.isspace():
             out += "/ "
         else:
             pass
@@ -97,7 +83,7 @@ while True:
         except ValueError:
             print("""Morse code not recognized. Please make sure:
 - You only input '.' or '-' for dots and dashes.
-- Make sure to leave a space ' ' between each word
+- Make sure to leave a space ' ' between each letter.
 - Separate each word with a '/' slash (make sure you leave a space either side of it too!)""")
     if y == "3":
         print("""Thank you for using the Morse Code Translator
